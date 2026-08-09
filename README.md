@@ -11,7 +11,7 @@ This project was built for the **Hacker House Goa 2026** hackathon shortlisting 
 The final output is a 1080×1080 PNG credential card with the HH GOA 2026 event mark, builder metadata (name, AI-generated title, tech stack), and geometric design details — all composited client-side on a single HTML5 Canvas, with the same render path for preview, download, and share.
 
 ## Live Demo
-
+          
 > **[shipframe.vercel.app](https://shipframe.vercel.app)** _(deploy pending Vercel CLI auth)_
 
 ## Tech Stack
