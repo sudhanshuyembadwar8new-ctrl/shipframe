@@ -48,6 +48,9 @@ export default function ActionBar({ canvasRef, hasPhotos }: ActionBarProps) {
     const handle = canvasRef.current;
     if (!handle) return;
 
+    // 1. Open popup synchronously before any await to preserve user-gesture context
+    const popup = window.open('', '_blank');
+
     setShareState('uploading');
 
     try {
@@ -78,11 +81,20 @@ export default function ActionBar({ canvasRef, hasPhotos }: ActionBarProps) {
 
       setShareState('done');
 
-      // Open Twitter intent in a new tab
-      window.open(tweetUrl.toString(), '_blank', 'noopener,noreferrer');
+      // 4. On success, navigate the reserved tab to the tweet intent
+      if (popup) {
+        popup.location.href = tweetUrl.toString();
+      }
     } catch (err) {
       console.error('Share failed:', err);
       setShareState('error');
+      
+      // 5. On failure, close the reserved tab and alert the user
+      if (popup) {
+        popup.close();
+      }
+      alert('Failed to upload and share. Please try again.');
+
       // Reset after a moment so the user can retry
       setTimeout(() => setShareState('idle'), 3000);
     }
