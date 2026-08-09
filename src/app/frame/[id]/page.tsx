@@ -10,8 +10,13 @@ interface PageProps {
 
 /** Resolve the blob URL for a given frame id from Vercel KV. */
 async function resolveFrameUrl(id: string): Promise<string | null> {
-  const url = await kv.get<string>(`frame:${id}`);
-  return url ?? null;
+  try {
+    const url = await kv.get<string>(`frame:${id}`);
+    return url ?? null;
+  } catch (err) {
+    console.error(`Error resolving frame URL for id "${id}":`, err);
+    return null; // Graceful fallback to OG defaults
+  }
 }
 
 // ─── Metadata (OG + Twitter card) ────────────────────────────────────
