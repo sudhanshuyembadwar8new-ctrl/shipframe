@@ -39,8 +39,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       );
     }
 
-    const id = crypto.randomUUID().slice(0, 12); // short but unique enough
+    const id = crypto.randomUUID().slice(0, 12);
     const filename = `frames/${id}.png`;
+
+    // Fallback for local development / preview environments without tokens
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      console.warn('No BLOB_READ_WRITE_TOKEN configured. Returning mock upload success.');
+      return NextResponse.json({ 
+        url: 'https://shipframe.vercel.app/og-fallback.png', 
+        id 
+      }, { status: 200 });
+    }
 
     // Upload to Vercel Blob
     const blob = await put(filename, body, {
@@ -50,12 +59,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
 
     // Store id → blob URL in Vercel KV (TTL: 30 days)
-    await kv.set(`frame:${id}`, blob.url, { ex: 60 * 60 * 24 * 30 });
-
-    // Safely increment atomic counter in the background (fire-and-forget)
-    kv.incr('frames_generated').catch(err => {
-      console.error('Failed to increment frames_generated counter:', err);
-    });
+    if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+      await kv.set(`frame:${id}`, blob.url, { ex: 60 * 60 * 24 * 30 });
+      
+      // Safely increment atomic counter in the background (fire-and-forget)
+      kv.incr('frames_generated').catch(err => {
+        console.error('Failed to increment frames_generated counter:', err);
+      });
+    }
 
     return NextResponse.json({ url: blob.url, id }, { status: 200 });
   } catch (err) {
