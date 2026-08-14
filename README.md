@@ -14,12 +14,12 @@ The final output is a 1080×1080 PNG credential card with the HH GOA 2026 event 
           
 > **[shipframe.vercel.app](https://shipframe.vercel.app)** _(deploy pending Vercel CLI auth)_
 
-## Tech Stack
+## Tech Stack             
 
 | Layer | Technology | Version |
-|---|---|---|
+|---|---|---|                                     
 | Framework | [Next.js](https://nextjs.org/) (App Router) | 14.2.35 |
-| Language | TypeScript | ^5 |
+| Language | TypeScript | ^5 |                                                         
 | UI | React | ^18 |
 | Styling | Tailwind CSS + Vanilla CSS design tokens | ^3.4.1 |
 | AI Titles | [Groq SDK](https://groq.com/) (Llama 3.1 8B Instant) | ^1.5.0 |
