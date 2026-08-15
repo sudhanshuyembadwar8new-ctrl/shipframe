@@ -1,9 +1,9 @@
 # ShipFrame                  
 
-**A branded credential frame generator for HH Goa 2026 — built fast, mobile-first, and unmistakably on-brand.**                                       
-                
+**A branded credential frame generator for HH Goa 2026 — built fast, mobile-first, and unmistakably on-brand.**                                                         
+                              
 ---                                                            
-                                                             
+                                                                          
 ## Problem Statement       
 
 This project was built for the **Hacker House Goa 2026** hackathon shortlisting task. The brief: build a photo frame / ID badge generator for the event that handles real, uncropped photos from any device (including iPhones shooting HEIC), works on mobile, and produces a credential graphic that is instantly recognizable as _this_ event — not a generic social-media frame.           
