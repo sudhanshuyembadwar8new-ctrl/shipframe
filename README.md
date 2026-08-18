@@ -1,8 +1,8 @@
 # ShipFrame                  
 
-**A branded credential frame generator for HH Goa 2026 — built fast, mobile-first, and unmistakably on-brand.**                                                         
+**A branded credential frame generator for HH Goa 2026 — built fast, mobile-first, and unmistakably on-brand.**                                                                                            
                               
----                                                            
+---                                                                                           
                                                                           
 ## Problem Statement       
 
